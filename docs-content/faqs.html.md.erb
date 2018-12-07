@@ -1,0 +1,76 @@
+---
+title: AppDynamics Pivotal Cloud Foundry Tile FAQs
+owner: Partners
+---
+
+## <a id='AAFAQS'></a> Transactional Analytics Agent FAQs
+
+### <a id='t1'></a> How do I configure Analytics Agent?
+
+Please refer these [Configuration instructions](https://docs.pivotal.io/partners/appdynamics-analytics/installing.html)
+
+### <a id='t2'></a> How is Analytics Agent Packaged?
+
+We package `Standalone Analytics Agent` into tile. When the tile is installed it runs as java application on the 
+elastic runtime of the PCF cloud.
+
+### <a id='t3'></a> What analytics are supported?
+
+Only transactional analytics are supported as of now. 
+
+### <a id='t4'></a> How do I enable transactional anaytics for an application?
+
+  * Install the tile, this deploys the analytics agent on the elastic runtime of the PCF cloud
+  * The analytics agent listens on a URL, note down the url. 
+  * For the application we want the transactional analytics set the environment variable `JAVA_OPTS: "-Dappdynamics.analytics.agent.url=http://<analytics-url>/v1/sinks/bt" ` 
+  * Restage the application. 
+
+### <a id='t5'></a> What needs to be done to enable SSL communication between applications and AppDynamics Analytics Service/Controller?
+  * No additional configuration is required
+  * Analytics agent container uses certificates imported into containers automatically by the BOSH director just like any other Java application container 
+  * A key store is automatically created and managed by the standard java buildpack which analytics agent container is built of
+  * The certficate issued by BOSH director is present in /etc/ssl/certs/ca-certificates.crt
+
+### <a id='t6'></a> How do we troubleshoot? 
+  * Check the logs 
+  * Check for any errors
+
+<pre class="terminal">
+  $  cf ssh appdanalytics-{version} -c "cat /home/vcap/app/analytics-agent/logs/analytics-agent.log"
+</pre>
+
+<pre class="terminal">
+  $ cf ssh appdanalytics-{version} -c "cat /home/vcap/app/analytics-agent/logs/analytics-agent-http.log"
+</pre>
+
+### <a id='t7'></a> There are SSL errors in the logs? How do we check the certificate
+  * This certificate is automatically generated and imported into container by PCF OpsManager Security Manager
+  * If you are using an OnPrem Controller with SSL installation. Make sure you have included the entire certificate chain in the security config of the OpsManager director tile
+  * To verify if the certificate is properly imported.  Check the certficate chain `/etc/ssl/certs/ca-certificates.crt` in the container and verify if the relevant certficate is present in the chain
+
+<pre class="terminal">
+  $  cf ssh appdanalytics-{version} -c "cat /etc/ssl/certs/ca-certificates.crt"
+</pre>
+
+
+### <a id='t8'></a> How is the Keystore created from the crt file?
+  * We use the standard java buildpack to create the analytics agent container. 
+  * As for any java container, the buildpack automatically creates the TrustManager for `/etc/ssl/certs/ca-certificates.crt` and watches it. 
+
+<pre class="terminal">
+  $  cf ssh appdanalytics-{version} -c "grep -i TrustManager ~/app/analytics-agent/logs/*.log"
+/home/vcap/app/analytics-agent/logs/analytics-agent.log:[2018-09-29T02:51:59,022Z]  [INFO ]  [main]  [o.c.s.CloudFoundryContainerTrustManagerFactory$PKIXFactory]  Adding System Trust Manager
+/home/vcap/app/analytics-agent/logs/analytics-agent.log:[2018-09-29T02:51:59,022Z]  [INFO ]  [main]  [o.c.s.CloudFoundryContainerTrustManagerFactory$PKIXFactory]  Adding TrustManager for /etc/ssl/certs/ca-certificates.crt
+/home/vcap/app/analytics-agent/logs/analytics-agent.log:[2018-09-29T02:51:59,211Z]  [INFO ]  [main]  [o.c.s.FileWatchingX509ExtendedTrustManager]  Initialized TrustManager for /etc/ssl/certs/ca-certificates.crt
+</pre>
+
+### <a id='t9'></a> What do we provide AppDynamics support?
+* Analytics Agent container logs 
+
+<pre class="terminal">
+  $  cf ssh appdanalytics-{version} -c "cat /home/vcap/app/analytics-agent/logs/analytics-agent.log"
+</pre>
+
+<pre class="terminal">
+  $ cf ssh appdanalytics-{version} -c "cat /home/vcap/app/analytics-agent/logs/analytics-agent-http.log"
+</pre>
