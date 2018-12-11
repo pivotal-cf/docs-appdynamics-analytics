@@ -8,7 +8,7 @@ This document describes how to configure an analytics agent and view transaction
 
 ## <a id="snapshot"></a> Feature Snapshot
 
- - If your AppDynamics controller has license for analytics monitoring, you can monitor application analytics.
+ - If your AppDynamics controller has a license for analytics monitoring, you can monitor application analytics.
 
 
 ## <a id="step1"></a> Step 1: Configure Tile for Analytics
@@ -20,7 +20,7 @@ This document describes how to configure an analytics agent and view transaction
 
 1. Click **Save**.
 
-1. After the tile updates successfully, get the route of the appdanalytics application by running the following command:
+1. After the tile updates successfully, get the route of the AppDynamics Analytics application by running the command:
     <pre class="terminal">
 
     $ cf target -o appdynamics-org
@@ -34,7 +34,7 @@ This document describes how to configure an analytics agent and view transaction
     $ cf apps
     Getting apps in org appdynamics-org / space appdynamics-space as admin...
     OK
-    
+
     name                       requested state   instances   memory   disk   urls
     appdanalytics-4.5.545      started           1/1         1G       1G     appdanalytics.cfapps.pie-multi-az-blue.cfplatformeng.com
     appdnozzle-4.5.555         started           1/1         1G       1G     appdnozzle.cfapps.pie-multi-az-blue.cfplatformeng.com
@@ -45,7 +45,7 @@ This document describes how to configure an analytics agent and view transaction
 </pre>
 
 
-## <a id="step2"></a> Step 2: Bind Application to Analytics Agent
+## <a id="step2"></a> Step 2: Bind the Application to the Analytics Agent
 
 After deploying the tile, follow the steps below to bind an application with the analytics agent to collect analytics data.
 
@@ -71,7 +71,7 @@ For help with this configuration, contact AppDynamics support.
 
 ## <a id="step4"></a> Step 4: Configure Analytics Collector on the Controller
 
-On your AppDynamics controller, follow these steps to configure the analytics collector for a target application.
+On your AppDynamics controller, to configure the analytics collector for a target application:
 
 1. Click **Analytics**.
   ![ConfigureAnalyticsCollector](../images/Analytics3.png)
