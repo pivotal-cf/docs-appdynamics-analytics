@@ -3,26 +3,25 @@ title: AppDynamics Application Analytics for PCF Tile FAQs
 owner: Partners
 ---
 
-## <a id='AAFAQS'></a> Transactional Analytics Agent FAQs
+## <a id='AAFAQS'></a> Transaction Analytics Agent FAQs
 
-### <a id='t1'></a> How do I configure an Application Analytics Agent?
+### <a id='t1'></a> How do I configure an Application Analytics Agent for Transaction Analytics?
 
 Please refer these [Configuration instructions](https://docs.pivotal.io/partners/appdynamics-analytics/installing.html)
 
 ### <a id='t2'></a> How is Analytics Agent Packaged?
 
-We package an `Analytics Agent` into a tile. When the tile is installed it runs as a Java application on the
-elastic runtime of the PCF cloud.
+We package an `Analytics Agent` into a tile. When the tile is installed it runs as a Java application on the elastic runtime of the PCF cloud.
 
-### <a id='t3'></a> What analytics are supported?
+### <a id='t3'></a> What Application Analytics modules are supported?
 
-Only transactional analytics are currently supported.
+Currently only Transaction Analytics are supported. Log analytics, Browser and Mobile Analytics may be supported in the future.
 
 ### <a id='t4'></a> How do I enable transactional anaytics for an application?
 
   * Installing the tile deploys an analytics agent on the elastic runtime of the PCF cloud.
   * This analytics agent listens on a URL, note down the url.
-  * For the application we want the transactional analytics set the environment variable `JAVA_OPTS: "-Dappdynamics.analytics.agent.url=http://<analytics-url>/v1/sinks/bt" `
+  * For the application to capture transaction analytics set the environment variable `JAVA_OPTS: "-Dappdynamics.analytics.agent.url=http://<analytics-url>/v1/sinks/bt" `
   * Restage the application.
 
 ### <a id='t5'></a> What needs to be done to enable SSL communication between applications and AppDynamics Analytics Service/Controller?
@@ -31,8 +30,8 @@ Only transactional analytics are currently supported.
   * A key store is automatically created and managed by the standard java buildpack which creates the analytics agent container
   * The certficate issued by BOSH director is present in /etc/ssl/certs/ca-certificates.crt
 
-### <a id='t6'></a> How do we troubleshoot?
-  * Check the logs
+### <a id='t6'></a> How to troubleshoot Application Analytics for PCF?
+  * Check the Analytics Agent container logs
   * Check for any errors
 
 <pre class="terminal">
@@ -53,7 +52,7 @@ Only transactional analytics are currently supported.
 </pre>
 
 
-### <a id='t8'></a> How is the Keystore created from the crt file?
+### <a id='t8'></a> How is the Keystore created from the digital certificate `.crt` file?
   * We use the standard java buildpack to create the analytics agent container.
   * As for any java container, the buildpack automatically creates the TrustManager for `/etc/ssl/certs/ca-certificates.crt` and watches it.
 
