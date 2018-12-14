@@ -3,9 +3,9 @@ title: AppDynamics Application Analytics for PCF Tile FAQs
 owner: Partners
 ---
 
-## <a id='AAFAQS'></a> Transaction Analytics Agent FAQs
+## <a id='AAFAQS'></a> Application Analytics Agent FAQs
 
-### <a id='t1'></a> How do I configure an Application Analytics Agent for Transaction Analytics?
+### <a id='t1'></a> How do I configure an Application Analytics Agent?
 
 Please refer these [Configuration instructions](https://docs.pivotal.io/partners/appdynamics-analytics/installing.html)
 
@@ -15,20 +15,20 @@ We package an `Analytics Agent` into a tile. When the tile is installed it runs 
 
 ### <a id='t3'></a> What Application Analytics modules are supported?
 
-Currently only Transaction Analytics are supported. Log analytics, Browser and Mobile Analytics may be supported in the future.
+Currently only Transaction Analytics are supported.
 
-### <a id='t4'></a> How do I enable transactional anaytics for an application?
+### <a id='t4'></a> How do I enable Application Analytics for an application?
 
   * Installing the tile deploys an analytics agent on the elastic runtime of the PCF cloud.
   * This analytics agent listens on a URL, note down the url.
-  * For the application to capture transaction analytics set the environment variable `JAVA_OPTS: "-Dappdynamics.analytics.agent.url=http://<analytics-url>/v1/sinks/bt" `
-  * Restage the application.
+  * For the application to capture transaction analytics set the environment variable `JAVA_OPTS: "-Dappdynamics.analytics.agent.url=http://<analytics-url>/v1/sinks/bt"`
+  * Restage the application. To learn more see: [Analytics Deployment Options](https://docs.appdynamics.com/display/PRO45/Analytics+Deployment+Options)
 
 ### <a id='t5'></a> What needs to be done to enable SSL communication between applications and AppDynamics Analytics Service/Controller?
-  * No additional configuration is required
-  * Analytics agent container uses certificates imported into containers automatically by the BOSH director just like any other Java application container
+  * No additional configuration is required.
+  * The analytics agent container uses certificates imported into containers automatically by the BOSH director just like any other Java application container
   * A key store is automatically created and managed by the standard java buildpack which creates the analytics agent container
-  * The certficate issued by BOSH director is present in /etc/ssl/certs/ca-certificates.crt
+  * The certficate issued by BOSH director is present in `/etc/ssl/certs/ca-certificates.crt`
 
 ### <a id='t6'></a> How to troubleshoot Application Analytics for PCF?
   * Check the Analytics Agent container logs
@@ -43,16 +43,16 @@ Currently only Transaction Analytics are supported. Log analytics, Browser and M
 </pre>
 
 ### <a id='t7'></a> There are SSL errors in the logs? How do we check the certificate?
-  * This certificate is automatically generated and imported into a container by PCF's OpsManager Security Manager
-  * If you are using an OnPrem Controller with SSL installation. Make sure you have included the entire certificate chain in the security configuration of the OpsManager director tile
-  * To verify if the certificate is properly imported, check the certficate chain `/etc/ssl/certs/ca-certificates.crt` in the container and confirm that the relevant certficate is present in the chain
+  * This certificate is automatically generated and imported into a container by PCF's OpsManager Security Manager.
+  * If you are using an On-Premises Controller with SSL installation. Make sure you have included the entire certificate chain in the security configuration of the OpsManager director tile.
+  * To verify if the certificate is properly imported, check the certficate chain `/etc/ssl/certs/ca-certificates.crt` in the container and confirm that the relevant certficate is present in the chain.
 
 <pre class="terminal">
   $  cf ssh appdanalytics-{version} -c "cat /etc/ssl/certs/ca-certificates.crt"
 </pre>
 
 
-### <a id='t8'></a> How is the Keystore created from the digital certificate `.crt` file?
+### <a id='t8'></a> How is the Keystore created from the .crt file?
   * We use the standard java buildpack to create the analytics agent container.
   * As for any java container, the buildpack automatically creates the TrustManager for `/etc/ssl/certs/ca-certificates.crt` and watches it.
 
