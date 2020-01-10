@@ -28,10 +28,10 @@ This section is for creating AppDynamics PCF Partner documentation for the first
 
 ### Build, View, and Edit Docs on macOS 
 
-AppDynamics PCF documentation lives in the PCF docs [Github repository](https://github.com/pivotal-cf?utf8=%E2%9C%93&q=appdynamics&type=&language=). To edit, stage, and publish changes, you must work with locally cloned branches of each product and topic repository.
+AppDynamics PCF documentation lives in the [PCF docs Github repository](https://github.com/pivotal-cf?utf8=%E2%9C%93&q=appdynamics&type=&language=). To edit, stage, and publish changes, you must work with locally cloned branches of each product and topic repository.
 
 This section describes how to build, view, and edit the AppDynamics documentation from your macOS machine.
-1. [Prerequisites ](#Prerequisites)
+1. [Prerequisites](#Prerequisites)
 2. [Getting Started](#Getting-Started)
 3. [Install Ruby](#Install-Ruby)
 4. [Set up Git](#Set-up-Git)
@@ -168,15 +168,10 @@ In a Terminal window:
      - [docs-appdynamics-apm](https://github.com/pivotal-cf/docs-appdynamics-apm)       
      - [docs-appdynamics-platform](https://github.com/pivotal-cf/docs-appdynamics-platform)
      - [docs-appdynamics-analytics](https://github.com/pivotal-cf/docs-appdynamics-analytics)
-Replace <TILENAME> with `apm`, `platform`, or `analytics`. 
-For SSH:
-    ```
-    $ git clone ssh://git@github.com:/pivotal-cf/docs-appdynamics-TILENAME.git
-    ```
-For HTTPS:
-    ```
-    $  git clone https://github.com/pivotal-cf/docs-appdynamics-TILENAME.git
-    ```
+	
+	Replace TILENAME with `apm`, `platform`, or `analytics`. 
+	* For SSH: `$ git clone ssh://git@github.com:/pivotal-cf/docs-appdynamics-TILENAME.git`
+	* For HTTPS: `$  git clone https://github.com/pifvotal-cf/docs-appdynamics-TILENAME.git`
 2. Navigate to the `docs-book` subdirectory of the repository.
 
    ```
@@ -282,21 +277,14 @@ This section describes how to sync to the master branch, navigate to the `releas
         ```
 
     If the commit fails, try setting up your global git configuration:
-                        ```
-                        $ git config --global user.name “<Firstname> <Lastname>”
-                        ```
-                        ```
-                        $ git config --global user.email name@appdynamics.com
-                        ```
-                        ```
-                        $ whoami
-                        ```
-                        ```
-                        $ git config --local --list
-                        ```
-                        ```
-                        $ ~/.gitconfig
-                        ```
+    ``` 
+	$ git config --global user.name “<Firstname> <Lastname>"
+	$ git config --global user.email name@appdynamics.com
+	$ whoami
+	$ git config --local --list
+	$ ~/.gitconfig
+
+	```  
                         
 11. Push your changes to the repo.
     ```
