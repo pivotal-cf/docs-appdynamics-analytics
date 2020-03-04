@@ -1,5 +1,5 @@
 ---
-title: AppDynamics Application Analytics for Pivotal Platform Tile FAQs
+title: AppDynamics Application Analytics for VMware Tanzu Tile FAQs
 owner: Partners
 ---
 
@@ -11,7 +11,7 @@ Please refer these [Configuration instructions](https://docs.pivotal.io/partners
 
 ### <a id='t2'></a> How is Analytics Agent Packaged?
 
-We package an `Analytics Agent` into a tile. When the tile is installed it runs as a Java application on the elastic runtime of the Pivotal Platform cloud.
+We package an `Analytics Agent` into a tile. When the tile is installed it runs as a Java application on the elastic runtime of the VMware Tanzu cloud.
 
 ### <a id='t3'></a> What Application Analytics modules are supported?
 
@@ -19,7 +19,7 @@ Currently only Transaction Analytics are supported.
 
 ### <a id='t4'></a> How do I enable Application Analytics for an application?
 
-  * Installing the tile deploys an analytics agent on the elastic runtime of the Pivotal Platform cloud.
+  * Installing the tile deploys an analytics agent on the elastic runtime of the VMware Tanzu cloud.
   * This analytics agent listens on a URL, note down the url.
   * For the application to capture transaction analytics set the environment variable `JAVA_OPTS: "-Dappdynamics.analytics.agent.url=http://<analytics-url>/v1/sinks/bt"`
   * Restage the application. To learn more see: [Analytics Deployment Options](https://docs.appdynamics.com/display/PRO45/Analytics+Deployment+Options)
@@ -30,7 +30,7 @@ Currently only Transaction Analytics are supported.
   * A key store is automatically created and managed by the standard java buildpack which creates the analytics agent container
   * The certficate issued by BOSH director is present in `/etc/ssl/certs/ca-certificates.crt`
 
-### <a id='t6'></a> How to troubleshoot Application Analytics for Pivotal Platform?
+### <a id='t6'></a> How to troubleshoot Application Analytics for VMware Tanzu?
   * Check the Analytics Agent container logs
   * Check for any errors
 
@@ -43,7 +43,7 @@ Currently only Transaction Analytics are supported.
 </pre>
 
 ### <a id='t7'></a> There are SSL errors in the logs? How do we check the certificate?
-  * This certificate is automatically generated and imported into a container by Pivotal Platform's OpsManager Security Manager.
+  * This certificate is automatically generated and imported into a container by VMware Tanzu's OpsManager Security Manager.
   * If you are using an On-Premises Controller with SSL installation. Make sure you have included the entire certificate chain in the security configuration of the OpsManager director tile.
   * To verify if the certificate is properly imported, check the certficate chain `/etc/ssl/certs/ca-certificates.crt` in the container and confirm that the relevant certficate is present in the chain.
 
